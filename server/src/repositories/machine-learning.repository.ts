@@ -130,7 +130,8 @@ export class MachineLearningRepository {
       }
 
       try {
-        const response = await fetch(new URL('/predict', url), { method: 'POST', body: formData });
+        const endpoint = ModelTask.SEARCH in config ? '/predict/search' : '/predict/face';
+        const response = await fetch(new URL(endpoint, url), { method: 'POST', body: formData });
         if (response.ok) {
           this.setUrlAvailability(url, true);
           return response.json();
